@@ -47,10 +47,10 @@ class RoleSeeder extends Seeder
         // create roles and assign created permissions
         foreach ($this->roles as $key => $value) {
             $role=  Role::create(['name'=>$value]);
-            if ($value=='super-admin') {
-                // dd($value);
-                $role->givePermissionTo($permissions);
-            }
+            // if ($value=='super-admin') {
+            //     // dd($value);
+            //     $role->givePermissionTo($permissions);
+            // }
         }
 
 

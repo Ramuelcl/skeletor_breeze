@@ -12,6 +12,58 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    /**
+     * The table associated with the model
+     *
+     * @var string
+     *
+     */
+    // protected $table='my_users';
+
+    /**
+         * The primary key associated with the table.
+         *
+         * @var string
+         */
+    // protected $primaryKey = 'post_id';
+
+    /**
+     * Indicates if the model's ID is auto-incrementing.
+     *
+     * @var bool
+     */
+    // public $incrementing = false;
+
+    /**
+     * The data type of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    // protected $keyType = 'string';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    // public $timestamps = false;
+
+    /**
+     * The database connection that should be used by the model.
+     *
+     * @var string
+     */
+    // protected $connection = 'sqlite';
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        // 'delayed' => false,
+    ];
+
 
     /**
      * The attributes that are mass assignable.
