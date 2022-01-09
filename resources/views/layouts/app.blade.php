@@ -1,4 +1,4 @@
-@include('layouts.head')
+@include('layouts.partials.head')
 
 <body class="font-sans antialiased">
   @include('layouts.sidebar')

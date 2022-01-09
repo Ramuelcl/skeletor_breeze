@@ -1,21 +1,28 @@
-<!DOCTYPE html>
-<html lang="fr">
+@php
+if (Session::has('sistema')){
+    $value=Session::get('sistema', 'Guzanet');
+}else{
+      $value = config('sistema.sistema');
+    Session::put('sistema', $value);
+}
+@endphp
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  {{-- favicon --}}
-  {{-- estilos --}}
-</head>
+@include('layouts.partials.head')
 
-<body>
-  {{-- header --}}
-  {{-- nav --}}
-  bienvenido a ala página principal !
-  {{-- footer --}}
-  {{-- script --}}
+<body class="font-sans antialiased">
+  @include('layouts.partials.sidebar')
+  <div class="min-h-screen bg-gray-100">
+
+    @include('layouts.partials.navigation')
+
+    <!-- Page Heading -->
+    @include('layouts.partials.header')
+
+    <!-- Page Content -->
+    @include('layouts.partials.body')
+  </div>
+  <!-- Page Foot -->
+  @include('layouts.partials.foot')
 </body>
 
 </html>
