@@ -36,7 +36,24 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user'=>'required',
+            'title'=>'required',
+            'content'=>'required',
+            'status'=>'required',
+            'parent'=>'required',
+            'type'=>'required',
+        ]);
+        $datos['posts'] = Post::create([
+            'user'=>$request->user,
+            'title'=>$request->title,
+            'content'=>$request->content,
+            'status'=>$request->status,
+            'parent'=>$request->parent,
+            'type'=>$request->type,
+        ]);
+
+        return \redirect()->route('posts.show', $datos);
     }
 
     /**
@@ -59,7 +76,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $datos['posts']=$post;
+        return \view('posts.editar', $datos);
     }
 
     /**
@@ -71,7 +89,17 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->user=$request->user;
+        $post->title=$request->title;
+        $post->content=$request->content;
+        $post->status=$request->status;
+        $post->parent=$request->parent;
+        $post->type=$request->type;
+
+        $post->save();
+
+        $datos['posts']=$post;
+        return \redirect()->route('posts.show', $datos);
     }
 
     /**
