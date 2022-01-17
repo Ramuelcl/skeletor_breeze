@@ -26,11 +26,27 @@ class PostRequest extends FormRequest
     {
         return [
             // 'user'=>'required',
-            'title'=>'required|max:10',
+            'title'=>'required|max:30',
             'content'=>'required|min:10',
             // 'status'=>'required',
             // 'parent'=>'required',
             // 'type'=>'required',
         ];
+    }
+
+    // para personalizar los nombres de campo
+    public function atributes()
+    {
+        return [
+        'title'=>'super titulo',
+    ];
+    }
+
+    // para personalizar los mensajes del campo
+    public function messages()
+    {
+        return [
+        'content.min'=>'he,he... eres de pocas palabras !',
+    ];
     }
 }

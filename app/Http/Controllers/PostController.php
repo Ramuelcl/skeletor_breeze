@@ -44,15 +44,32 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post=new Post();
+        // otra forma
+        // $request->user=\random_int(2, 48);
+        // $request->slug=Str::slug($request->title);
+        // $request->status=\random_int(1, 5);
+        // return $request->all();
+        // $post= Post::create($request->all());
 
-        $post->user=\random_int(2, 48);
-        $post->title=$request->title;
-        $post->slug=Str::slug($request->title);
-        $post->content=$request->content;
-        $post->status=\random_int(1, 5);
+        // otra forma
+        $post= Post::create([
+            'user'=>\random_int(2, 48) ,
+            'title'=>$request->title ,
+            'slug'=>Str::slug($request->title) ,
+            'content'=>$request->content ,
+            'status'=>\random_int(1, 5) ,
+        ]);
 
-        $post->save();
+        // otra forma
+        // $post=new Post();
+
+        // $post->user=\random_int(2, 48);
+        // $post->title=$request->title;
+        // $post->slug=Str::slug($request->title);
+        // $post->content=$request->content;
+        // $post->status=\random_int(1, 5);
+
+        // $post->save();
 
 
         return \redirect()->route('posts.index');

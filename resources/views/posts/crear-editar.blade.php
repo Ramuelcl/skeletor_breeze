@@ -1,8 +1,12 @@
 {{-- crear-editar.blade.php --}}
 
-{{-- <input type="hidden" name="user" value="1"> --}}
-
 <div>
+  {{-- campos ocultos --}}
+  <input type="hidden" name="user">
+  <input type="hidden" name="slug">
+  <input type="hidden" name="status">
+  {{-- campos ocultos --}}
+
   <x-label for="title" :value="__('Title')" />
 
   <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus />
