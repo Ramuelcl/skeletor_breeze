@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
+// validación de formulario
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -14,8 +17,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        $datos['posts']=Post::all();
-        return view('posts.articles', $datos);
+        $datos['posts']=Post::orderBy('id', 'desc')
+        ->where('status', '=', 'assigned')
+        ->get();
+        // dd($datos);
+        // where('status',  'assigned')
+        //
+        return view('posts.articles', \compact('datos'));
     }
 
     /**
@@ -34,26 +42,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $request->validate([
-            'user'=>'required',
-            'title'=>'required',
-            'content'=>'required',
-            'status'=>'required',
-            'parent'=>'required',
-            'type'=>'required',
-        ]);
-        $datos['posts'] = Post::create([
-            'user'=>$request->user,
-            'title'=>$request->title,
-            'content'=>$request->content,
-            'status'=>$request->status,
-            'parent'=>$request->parent,
-            'type'=>$request->type,
-        ]);
+        $post=new Post();
 
-        return \redirect()->route('posts.show', $datos);
+        $post->user=\random_int(2, 48);
+        $post->title=$request->title;
+        $post->slug=Str::slug($request->title);
+        $post->content=$request->content;
+        $post->status=\random_int(1, 5);
+
+        $post->save();
+
+
+        return \redirect()->route('posts.index');
     }
 
     /**
@@ -65,7 +67,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $datos['posts']=$post;
-        return \view('posts.article', $datos);
+        return \view('posts.article', compact('datos'));
     }
 
     /**
@@ -77,7 +79,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $datos['posts']=$post;
-        return \view('posts.editar', $datos);
+        return \view('posts.editar', compact('datos'));
     }
 
     /**
@@ -89,6 +91,15 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+            // 'user'=>'required',
+            'title'=>'required',
+            'content'=>'required',
+            // 'status'=>'required',
+            // 'parent'=>'required',
+            // 'type'=>'required',
+        ]);
+
         $post->user=$request->user;
         $post->title=$request->title;
         $post->content=$request->content;
@@ -99,7 +110,7 @@ class PostController extends Controller
         $post->save();
 
         $datos['posts']=$post;
-        return \redirect()->route('posts.show', $datos);
+        return \redirect()->route('posts.show', compact('datos'));
     }
 
     /**
@@ -111,9 +122,5 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
-    }
-    public function contact()
-    {
-        return view('public.contact');
     }
 }

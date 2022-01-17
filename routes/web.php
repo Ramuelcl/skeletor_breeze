@@ -31,7 +31,7 @@ Route::resource(
 
 
 //
-Route::get('/contactez-nous', [PostController::class,'contact'])->name('contact');
+Route::get('/contactez-nous', [HomeController::class,'contact'])->name('contact');
 
 //
 Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');

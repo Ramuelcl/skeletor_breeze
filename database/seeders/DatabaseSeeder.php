@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
         ]);
         // $categories=Category::factory(15)->create();
         // dd($categories);
+        Post::factory(200)->create();
 
         User::factory(49)->create();
         // User::factory(49)->create()->each(

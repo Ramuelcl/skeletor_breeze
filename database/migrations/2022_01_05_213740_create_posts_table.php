@@ -15,14 +15,16 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
 
-            $table->BigInteger('user');
-            $table->string('title');
-            $table->text('content');
-            $table->enum('status', array('draft', 'in progress', 'pending','assigned', 'rejected'))->index(); // *** fix this
-            $table->BigInteger('parent');
-            $table->tinyInteger('type');
+            $table->BigInteger('user')->nullable();
+            $table->string('title', 50)->nullable();
+            $table->string('slug')->unique()->nullable();
+            $table->text('content')->nullable();
+            $table->enum('status', array('draft', 'in progress', 'pending','assigned', 'rejected'))->index()->default('draft'); // *** fix this
+            $table->BigInteger('parent')->nullable();
+            $table->tinyInteger('type')->nullable();
+
+            $table->timestamps();
         });
     }
 
